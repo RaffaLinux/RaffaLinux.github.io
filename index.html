@@ -1,7 +1,121 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Progetti Universitari</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+        }
+        nav {
+            background-color: #444;
+            text-align: center;
+            padding: 0.5rem 0;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .project {
+            background: white;
+            margin: 1rem 0;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .project h2 {
+            margin-top: 0;
+        }
+        .project p {
+            line-height: 1.6;
+        }
+        .project a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .project a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #333;
+            color: white;
+        }
+        footer a {
+            color: #007bff;
+        }
+    </style>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+    <header>
+        <h1>Portfolio - Progetti Universitari</h1>
+        <p>Benvenuto! Esplora i miei progetti e il mio percorso accademico.</p>
+    </header>
+    
+    <nav>
+        <a href="#">Home</a>
+        <a href="#about">Chi sono</a>
+        <a href="#projects">Progetti</a>
+        <a href="#contact">Contatti</a>
+    </nav>
+
+    <div class="container">
+        <section id="about">
+            <h2>Chi sono</h2>
+            <p>Sono uno studente universitario appassionato di tecnologia e sviluppo software. Durante il mio percorso accademico, ho lavorato a diversi progetti che spaziano dall'Intelligenza Artificiale allo sviluppo web. Qui puoi esplorare alcuni dei miei lavori.</p>
+        </section>
+
+        <section id="projects">
+            <h2>Progetti</h2>
+
+            <div class="project">
+                <h2>Progetto 1: Classificazione delle Immagini</h2>
+                <p>Un sistema di classificazione delle immagini utilizzando reti neurali convoluzionali sviluppato in Python e PyTorch. Include un'analisi dettagliata delle prestazioni su un dataset custom.</p>
+                <a href="https://github.com/tuo-username/progetto1" target="_blank">Visita il repository su GitHub</a>
+            </div>
+
+            <div class="project">
+                <h2>Progetto 2: Sito Web Interattivo</h2>
+                <p>Uno showcase creato con HTML, CSS e JavaScript, per presentare i progetti in modo interattivo e accattivante.</p>
+                <a href="https://github.com/tuo-username/progetto2" target="_blank">Visita il repository su GitHub</a>
+            </div>
+
+            <div class="project">
+                <h2>Progetto 3: Analisi di Dati</h2>
+                <p>Un progetto di analisi di dati finanziari utilizzando Pandas e Matplotlib per visualizzazioni dinamiche e analisi predittiva.</p>
+                <a href="https://github.com/tuo-username/progetto3" target="_blank">Visita il repository su GitHub</a>
+            </div>
+
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Tuo Nome. <a href="https://github.com/tuo-username">GitHub</a></p>
+    </footer>
 </body>
 </html>
