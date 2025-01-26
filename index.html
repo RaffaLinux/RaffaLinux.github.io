@@ -3,119 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - Progetti Universitari</title>
+    <title>Raffaele Carillo - Projects</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Inter', Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-        header {
-            background-color: #333;
-            color: white;
-            padding: 1rem 0;
-            text-align: center;
-        }
-        header h1 {
-            margin: 0;
-        }
-        nav {
-            background-color: #444;
-            text-align: center;
-            padding: 0.5rem 0;
-        }
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 1rem;
-        }
-        nav a:hover {
-            text-decoration: underline;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-        .project {
-            background: white;
-            margin: 1rem 0;
-            padding: 1rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .project h2 {
-            margin-top: 0;
-        }
-        .project p {
+            background-color: #f8f9fa;
+            color: #212529;
             line-height: 1.6;
         }
-        .project a {
-            color: #007bff;
-            text-decoration: none;
+
+        header {
+            background-color: #343a40;
+            color: #ffffff;
+            padding: 2rem 0;
+            text-align: center;
         }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        nav {
+            background-color: #495057;
+            display: flex;
+            justify-content: center;
+            padding: 1rem 0;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #adb5bd;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+        }
+
+        section {
+            margin-bottom: 3rem;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            color: #495057;
+        }
+
+        p {
+            font-size: 1rem;
+            color: #6c757d;
+        }
+
+        .project {
+            background: #ffffff;
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .project h2 {
+            margin-top: 0;
+            font-size: 1.5rem;
+            color: #212529;
+        }
+
+        .project a {
+            color: #0d6efd;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
         .project a:hover {
             text-decoration: underline;
         }
+
         footer {
             text-align: center;
-            padding: 1rem 0;
-            background-color: #333;
-            color: white;
+            padding: 1.5rem 0;
+            background-color: #343a40;
+            color: #ffffff;
         }
+
         footer a {
-            color: #007bff;
+            color: #0d6efd;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Portfolio - Progetti Universitari</h1>
-        <p>Benvenuto! Esplora i miei progetti e il mio percorso accademico.</p>
+        <h1>Raffaele Carillo's Projects</h1>
     </header>
-    
+
     <nav>
         <a href="#">Home</a>
-        <a href="#about">Chi sono</a>
-        <a href="#projects">Progetti</a>
-        <a href="#contact">Contatti</a>
+        <a href="#about">Who am I?</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contacts</a>
     </nav>
 
     <div class="container">
         <section id="about">
-            <h2>Chi sono</h2>
-            <p>Sono uno studente universitario appassionato di tecnologia e sviluppo software. Durante il mio percorso accademico, ho lavorato a diversi progetti che spaziano dall'Intelligenza Artificiale allo sviluppo web. Qui puoi esplorare alcuni dei miei lavori.</p>
+            <h2>Who am I?</h2>
+            <p>I work as a research fellow at ARCLAB, University of Naples "Federico II", and am a former Apple Developer Academy student. During my work and academic experience, I have contributed to several university and personal projects.</p>
         </section>
 
         <section id="projects">
-            <h2>Progetti</h2>
+            <h2>Projects</h2>
 
             <div class="project">
-                <h2>Progetto 1: Classificazione delle Immagini</h2>
-                <p>Un sistema di classificazione delle immagini utilizzando reti neurali convoluzionali sviluppato in Python e PyTorch. Include un'analisi dettagliata delle prestazioni su un dataset custom.</p>
-                <a href="https://github.com/tuo-username/progetto1" target="_blank">Visita il repository su GitHub</a>
+                <h2>NotPetya Malware Analysis</h2>
+                <p>A full malware analysis of the NotPetya malware, including static and dynamic analysis and x86 assembly reverse engineering.</p>
+                <a href="https://github.com/tuo-username/progetto1" target="_blank">Visit the repository on GitHub</a>
             </div>
 
             <div class="project">
-                <h2>Progetto 2: Sito Web Interattivo</h2>
-                <p>Uno showcase creato con HTML, CSS e JavaScript, per presentare i progetti in modo interattivo e accattivante.</p>
-                <a href="https://github.com/tuo-username/progetto2" target="_blank">Visita il repository su GitHub</a>
+                <h2>Moving Target Defense with SDN</h2>
+                <p>A project showcasing the use of Software Defined Networks (SDN) to detect and counter malicious intrusions.</p>
+                <a href="https://github.com/tuo-username/progetto2" target="_blank">Visit the repository on GitHub</a>
             </div>
 
             <div class="project">
-                <h2>Progetto 3: Analisi di Dati</h2>
-                <p>Un progetto di analisi di dati finanziari utilizzando Pandas e Matplotlib per visualizzazioni dinamiche e analisi predittiva.</p>
-                <a href="https://github.com/tuo-username/progetto3" target="_blank">Visita il repository su GitHub</a>
+                <h2>MANANA Web App</h2>
+                <p>The server-side of the MANANA project, developed at ARCLAB, aims to collect network statistics about mobile Android apps to assess where user data travels worldwide.</p>
+                <a href="https://github.com/tuo-username/progetto3" target="_blank">Visit the repository on GitHub</a>
+            </div>
+
+            <div class="project">
+                <h2>Target Stuff</h2>
+                <p>A mobile game made with Unity for Android. Test your patience and aim as you hit targets and solve challenging levels. Created for fun with friends.</p>
+                <a href="https://github.com/tuo-username/progetto4" target="_blank">Visit the repository on GitHub</a>
             </div>
 
         </section>
     </div>
 
     <footer>
-        <p>&copy; 2025 Tuo Nome. <a href="https://github.com/tuo-username">GitHub</a></p>
+        <p>&copy; 2025 Raffaele Carillo. <a href="https://github.com/tuo-username">GitHub</a></p>
     </footer>
 </body>
 </html>
