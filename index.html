@@ -40,36 +40,39 @@
             margin: 2rem auto;
             padding: 0 1rem;
         }
+        .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        }
         .project {
             background: white;
-            margin: 1rem 0;
             padding: 1rem;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            text-align: center;
         }
         .project img {
             width: 100%;
-            max-width: 300px;
-            height: 300px;
-            object-fit: cover;
+            height: auto;
             border-radius: 8px;
             margin-bottom: 1rem;
         }
         .project h2 {
             margin: 0.5rem 0;
+            font-size: 1rem;
         }
         .project p {
-            text-align: center;
-            line-height: 1.6;
             font-size: 0.9rem;
+            line-height: 1.4;
+            margin: 0;
         }
         .project a {
             color: #007bff;
             text-decoration: none;
+            font-weight: bold;
             margin-top: 0.5rem;
+            display: inline-block;
         }
         .project a:hover {
             text-decoration: underline;
@@ -122,59 +125,51 @@
     <div class="container">
         <section id="about">
             <h2>Who am I?</h2>
-            <p>I am a research fellow at ARCLAB, University of Naples "Federico II," and a former Apple Developer Academy student. I've worked on many exciting projects during my academic and professional journey.</p>
+            <p>I am a post-graduate research fellow at ARCLAB, University of Naples "Federico II," and a former Apple Developer Academy student. I've worked on many exciting projects during my academic and professional journey.</p>
         </section>
 
         <section id="projects">
             <h2>Projects</h2>
-
-            <div class="project">
-                <img src="https://via.placeholder.com/300" alt="NotPetya Malware Analysis">
-                <h2>NotPetya Analysis</h2>
-                <p>Comprehensive reverse engineering of the NotPetya malware, including static and dynamic analysis.</p>
-                <a href="https://github.com/tuo-username/progetto1" target="_blank">View on GitHub</a>
+        
+            <div class="projects-grid">
+                <div class="project">
+                    <img src="./bootloader.png" alt="NotPetya Malware Analysis">
+                    <h2>NotPetya Malware Analysis</h2>
+                    <p>Reverse engineering the NotPetya malware with also static and dynamic analysis.</p>
+                    <a href="./NotPetya%20Analysis.pdf" target="_blank">View on GitHub</a>
+                </div>
+        
+                <div class="project">
+                    <img src="https://via.placeholder.com/300" alt="Moving Target Defense">
+                    <h2>Moving Target Defense</h2>
+                    <p>Thwart intruders using SDN in dynamic network environments.</p>
+                    <a href="https://github.com/tuo-username/progetto2" target="_blank">View on GitHub</a>
+                </div>
+        
+                <div class="project">
+                    <img src="https://via.placeholder.com/300" alt="MANANA Web App">
+                    <h2>MANANA Web App</h2>
+                    <p>Analyze mobile app data flow with server-side tools.</p>
+                    <a href="https://github.com/tuo-username/progetto2" target="_blank">View on GitHub</a>
+                </div>
+        
+                <div class="project">
+                    <img src="https://via.placeholder.com/300" alt="Target Stuff">
+                    <h2>Target Stuff</h2>
+                    <p>A fun game where you hit targets to beat levels.</p>
+                    <a href="https://github.com/tuo-username/progetto3" target="_blank">View on GitHub</a>
+                </div>
             </div>
-
-            <div class="project">
-                <img src="https://via.placeholder.com/300" alt="Moving Target Defense">
-                <h2>Moving Target Defense</h2>
-                <p>Using SDN to detect and thwart malicious intruder activities in networks.</p>
-                <a href="https://github.com/tuo-username/progetto2" target="_blank">View on GitHub</a>
-            </div>
-
-            <div class="project">
-                <img src="https://via.placeholder.com/300" alt="MANANA Web App">
-                <h2>MANANA Web App</h2>
-                <p>A server-side tool collecting mobile app data to analyze global data flow patterns.</p>
-                <a href="https://github.com/tuo-username/progetto2" target="_blank">View on GitHub</a>
-            </div>  
-
-            <div class="project">
-                <img src="https://via.placeholder.com/300" alt="Target Stuff">
-                <h2>Target Stuff</h2>
-                <p>Fun mobile game where you aim and hit targets to clear challenging levels.</p>
-                <a href="https://github.com/tuo-username/progetto3" target="_blank">View on GitHub</a>
-            </div>
-
         </section>
 
         <section id="publications">
             <h2>Publications</h2>
 
             <div class="publication">
-                <h3>Title of Paper 1</h3>
-                <p>This study explores the integration of advanced techniques in cybersecurity, providing novel insights into malware detection.</p>
+                <h3>Interpretability and Complexity Reduction in IoT Network Anomaly Detection Via XAI</h3>
+                <p>This work studies the use of XAI to reduce the complexity of Deep Learning based Anomaly-Based Intrusion Detection Systems (IDS) by removing unimportant features. In particular, it uses the Kitsune and IoT23 datasets made of traffic from infected IoT devices belonging to botnets.</p>
             </div>
 
-            <div class="publication">
-                <h3>Title of Paper 2</h3>
-                <p>A groundbreaking analysis of network security frameworks utilizing AI-driven methodologies for enhanced threat response.</p>
-            </div>
-
-            <div class="publication">
-                <h3>Title of Paper 3</h3>
-                <p>An exploration of data flow patterns in mobile applications, offering insights into global data privacy concerns.</p>
-            </div>
 
         </section>
     </div>
