@@ -49,14 +49,14 @@
             background: white;
             padding: 1rem;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             text-align: center;
         }
         .project img {
-            width: 100%;
+            width: calc(100% + 2rem); /* Expands image to compensate for padding */
             height: auto;
-            border-radius: 8px;
-            margin-bottom: 1rem;
+            margin: -1rem -1rem 1rem -1rem; /* Negates padding for full width */
+            border-radius: 8px 8px 0 0; /* Keeps top corners rounded */
         }
         .project h2 {
             margin: 0.5rem 0;
@@ -82,7 +82,7 @@
             margin: 1rem 0;
             padding: 1rem;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         .publication h3 {
             margin: 0;
@@ -136,28 +136,28 @@
                     <img src="./bootloader.png" alt="NotPetya Malware Analysis">
                     <h2>NotPetya Malware Analysis</h2>
                     <p>Reverse engineering the NotPetya malware with also static and dynamic analysis.</p>
-                    <a href="./NotPetya%20Analysis.pdf" target="_blank">View on GitHub</a>
+                    <a href="./NotPetya%20Analysis.pdf" target="_blank">Download PDF</a>
                 </div>
         
                 <div class="project">
-                    <img src="https://via.placeholder.com/300" alt="Moving Target Defense">
+                    <img src="./snort.png" alt="Moving Target Defense">
                     <h2>Moving Target Defense</h2>
                     <p>Thwart intruders using SDN in dynamic network environments.</p>
-                    <a href="https://github.com/tuo-username/progetto2" target="_blank">View on GitHub</a>
+                    <a href="https://github.com/tuo-username/progetto2" target="_blank">Download PDF</a>
                 </div>
         
                 <div class="project">
                     <img src="https://via.placeholder.com/300" alt="MANANA Web App">
                     <h2>MANANA Web App</h2>
                     <p>Analyze mobile app data flow with server-side tools.</p>
-                    <a href="https://github.com/tuo-username/progetto2" target="_blank">View on GitHub</a>
+                    <a href="143.225.229.154" target="_blank">Visit web site</a>
                 </div>
         
                 <div class="project">
                     <img src="https://via.placeholder.com/300" alt="Target Stuff">
                     <h2>Target Stuff</h2>
-                    <p>A fun game where you hit targets to beat levels.</p>
-                    <a href="https://github.com/tuo-username/progetto3" target="_blank">View on GitHub</a>
+                    <p>A fun game made with Unity where you hit targets to beat levels.</p>
+                    <p style="color: red;"><b>No longer available</b></p>
                 </div>
             </div>
         </section>
