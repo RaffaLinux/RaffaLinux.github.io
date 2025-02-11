@@ -170,8 +170,9 @@
 
     <div class="container">
         <h1>Redline Infostealer Analysis</h1>
-        <h3>Introduction</h3>
+        <h2>Introduction</h2>
         <p>Redline is a malware family that has been active since 2012. It is a data stealer that is capable of exfiltrating sensitive information from the victim's machine. The malware is written in C++ and is often packed with a custom packer and loaded on the victim's machine through various loading and defense evasion mechanisms. The malware is capable of stealing sensitive information such as credentials, cookies, and browser history. The malware is also capable of taking screenshots of the victim's machine.</p>
+        <h2>First stage: Downloader</h2>
         <h3>Basic static analysis</h3>
         <p>The sample under analysis (<b>SHA1:d6ae1c5d0bf5d7784c775ee833ec63756c77bdae</b>) is flagged as a generic Trojan Downloade by most AV suites or as Fareit by some of them. It is a EXE file built for x86-64 Windows systems.
         We first analyze its capabilities using capa. The output of the tool is shown below:</p>
@@ -243,9 +244,16 @@
             <p>We can see that it has some basic capabilities such as comunicate with a HTTP server as well as to establish persistence using the Registry run key as well to detect processes for Anti-Analysis purposes.</p>
             <p>Next, we will analyze the strings of the sample using DetectItEasy. The output of the tool is shown below:</p>
             <img src="./strings1.png" alt="Redline strings analysis" style="width: 100%; height: auto;">
-            <p>We can see that the sample contains strings relative to the aforementioned techniques, such as an URL for the C2 server (and in particular to a dll named "<b>bot.dll</b>"). Its IP "<b>176.113.115.149</b>" refers to a server loacted in Russia. The process names of famous analysis tools such as <b>x64dbg</b> and <b>Process Hacker</b> are also present, presumably to evade analysis. It also makes use the registry run key to achieve persistence. Additionally, it mentions <b>explorer.exe</b> probably to achieve process injection. Finally, the use of reflection to load the malware is also probably exploited.</p>
+            <p>We can see that the sample contains strings relative to the aforementioned techniques, such as an URL for the C2 server (and in particular to a dll named "<b>bot.dll</b>"). Its IP - "<b>176.113.115.149</b>" - refers to a server loacted in Russia. The process names of famous analysis tools such as <b>x64dbg</b> and <b>Process Hacker</b> are also present, presumably to evade analysis. It also makes use the registry run key to achieve persistence. Additionally, it mentions <b>explorer.exe</b> probably to achieve process injection. Finally, the use of reflection to load the malware is also probably exploited.</p>
             <p>The PE of the executable contains six sections beside the Header and the entropy measurement indicates that none of them are packed. The sample was compiled with Microsoft Visual C/C++ (17.00.50727) [C++], linked with Microsoft Linker (11.00.50727) and written using Visual Studio 2012.</p>
         </div>
+        <h3>Basic dynamic analysis</h3>
+        <p>Next, we analyze the sample by running it in a controlled environment. We use <b>Process Monitor</b> to monitor the file system, registry, and, with also <b>Wireshark</b>, network activity of the sample. To analyse the sample, it's anti-analysis functions were patched so to not detect the analysis tools. The output of the tool is shown below:</p>
+        <img src="./botDownloadWireshark.png" alt="Redline strings analysis" style="width: 100%; height: auto;">
+        <img src="./procmondownloader1.png" alt="Redline strings analysis" style="width: 100%; height: auto;">
+        <img src="./procmondownloader2.png" alt="Redline strings analysis" style="width: 100%; height: auto;">
+        <p>After this, the malware relaunches itself as "<b>msiexec.exe</b>" after setting environment variables. Also it downloads a .exe file with a temp name (that actually is bot.dll) to %AppData%.</p> 
+
 
     <footer>
         <p>&copy; 2025 Raffaele Carillo. <a href="https://github.com/tuo-username">GitHub</a></p>
