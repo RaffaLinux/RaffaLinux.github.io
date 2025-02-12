@@ -145,6 +145,11 @@
             background-color: #333;
             color: white;
         }
+        .gallery-item {
+                width: 300px;
+                height: auto;
+            cursor: pointer;
+        }
         footer a {
             color: #007bff;
         }
@@ -154,6 +159,63 @@
             }
         }
     </style>
+                
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const galleryItems = document.querySelectorAll('.gallery-item');
+                        galleryItems.forEach(item => {
+                            // Wrap each image in a container
+                            const container = document.createElement('div');
+                            container.style.position = 'relative';
+                            container.style.display = 'inline-block';
+                            container.style.margin = '10px';
+                            
+                            // Create zoom icon
+                            const zoomIcon = document.createElement('i');
+                            zoomIcon.className = 'fas fa-search-plus';
+                            zoomIcon.style.position = 'absolute';
+                            zoomIcon.style.top = '10px';
+                            zoomIcon.style.right = '10px';
+                            zoomIcon.style.color = 'white';
+                            zoomIcon.style.fontSize = '20px';
+                            zoomIcon.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+                            zoomIcon.style.borderRadius = '50%';
+                            zoomIcon.style.padding = '5px';
+                            
+                            // Append image and zoom icon to container
+                            container.appendChild(item.cloneNode());
+                            container.appendChild(zoomIcon);
+                            item.parentNode.replaceChild(container, item);
+                            
+                            container.addEventListener('click', function() {
+                                const modal = document.createElement('div');
+                                modal.style.position = 'fixed';
+                                modal.style.top = '0';
+                                modal.style.left = '0';
+                                modal.style.width = '100%';
+                                modal.style.height = '100%';
+                                modal.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+                                modal.style.display = 'flex';
+                                modal.style.alignItems = 'center';
+                                modal.style.justifyContent = 'center';
+                                modal.style.zIndex = '1000';
+                                
+                                const img = document.createElement('img');
+                                img.src = container.querySelector('img').src;
+                                img.style.maxWidth = '90%';
+                                img.style.maxHeight = '90%';
+                                img.style.border = '2px solid white';
+                                
+                                modal.appendChild(img);
+                                document.body.appendChild(modal);
+                                
+                                modal.addEventListener('click', function() {
+                                    document.body.removeChild(modal);
+                    });
+                    });
+                });
+                });
+            </script>
 </head>
 <body>
     <header>
@@ -243,86 +305,95 @@
             
             <p>We can see that it has some basic capabilities such as comunicate with a HTTP server as well as to establish persistence using the Registry run key as well to detect processes for Anti-Analysis purposes.</p>
             <p>Next, we will analyze the strings of the sample using DetectItEasy. The output of the tool is shown below:</p>
-
+            
             <img src="./redlineAnalysis/strings1.png" alt="Redline strings analysis" class="gallery-item">
-            <p>We can see that the sample contains strings relative to the aforementioned techniques, such as an URL for the C2 server (and in particular to a dll named "<b>bot.dll</b>"). Its IP - "<b>176.113.115.149</b>" - refers to a server loacted in Russia. The process names of famous analysis tools such as <b>x64dbg</b> and <b>Process Hacker</b> are also present, presumably to evade analysis. It also makes use the registry run key to achieve persistence. Additionally, it mentions <b>explorer.exe</b> probably to achieve process injection. Finally, the use of reflection to load the malware is also probably exploited.</p>
+            <p>We can see that the sample contains strings relative to the aforementioned techniques, such as an URL for the C2 server  to a dll named "<b>bot.dll</b>" (SHA1: 78bdad1cf98759ec9dbcc1888cdaa2f7fccfcdbc). Its IP - "<b>176.113.115.149</b>" - refers to a server loacted in Russia. The process names of famous analysis tools such as <b>x64dbg</b> and <b>Process Hacker</b> are also present, presumably to evade analysis. It also makes use the registry run key to achieve persistence. Additionally, it mentions <b>explorer.exe</b> probably to achieve process injection. Finally, the use of reflection to load the malware is also probably exploited.</p>
             <p>The PE of the executable contains six sections beside the Header and the entropy measurement indicates that none of them are packed. The sample was compiled with Microsoft Visual C/C++ (17.00.50727) [C++], linked with Microsoft Linker (11.00.50727) and written using Visual Studio 2012.</p>
-        </div>
         <h3>Basic dynamic analysis</h3>
         <p>Next, we analyze the sample by running it in a controlled environment. We use <b>Process Monitor</b> to monitor the file system, registry, and, with also <b>Wireshark</b>, network activity of the sample. To analyse the sample, it's anti-analysis functions were patched so to not detect the analysis tools. The output of the tool is shown below:</p>
             <img src="./redlineAnalysis/botDownloadWireshark.png" alt="Redline strings analysis" class="gallery-item">
             <img src="./redlineAnalysis/procmondownloader1.png" alt="Redline strings analysis" class="gallery-item">
             <img src="./redlineAnalysis/procmondownloader2.png" alt="Redline strings analysis" class="gallery-item">
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-            const galleryItems = document.querySelectorAll('.gallery-item');
-            galleryItems.forEach(item => {
-                // Wrap each image in a container
-                const container = document.createElement('div');
-                container.style.position = 'relative';
-                container.style.display = 'inline-block';
-                container.style.margin = '10px';
 
-                // Create zoom icon
-                const zoomIcon = document.createElement('i');
-                zoomIcon.className = 'fas fa-search-plus';
-                zoomIcon.style.position = 'absolute';
-                zoomIcon.style.top = '10px';
-                zoomIcon.style.right = '10px';
-                zoomIcon.style.color = 'white';
-                zoomIcon.style.fontSize = '20px';
-                zoomIcon.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-                zoomIcon.style.borderRadius = '50%';
-                zoomIcon.style.padding = '5px';
-
-                // Append image and zoom icon to container
-                container.appendChild(item.cloneNode());
-                container.appendChild(zoomIcon);
-                item.parentNode.replaceChild(container, item);
-
-                container.addEventListener('click', function() {
-                const modal = document.createElement('div');
-                modal.style.position = 'fixed';
-                modal.style.top = '0';
-                modal.style.left = '0';
-                modal.style.width = '100%';
-                modal.style.height = '100%';
-                modal.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
-                modal.style.display = 'flex';
-                modal.style.alignItems = 'center';
-                modal.style.justifyContent = 'center';
-                modal.style.zIndex = '1000';
-
-                const img = document.createElement('img');
-                img.src = container.querySelector('img').src;
-                img.style.maxWidth = '90%';
-                img.style.maxHeight = '90%';
-                img.style.border = '2px solid white';
-
-                modal.appendChild(img);
-                document.body.appendChild(modal);
-
-                modal.addEventListener('click', function() {
-                    document.body.removeChild(modal);
-                });
-                });
-            });
-            });
-        </script>
-        <style>
-            .gallery-item {
-            width: 300px;
-            height: auto;
-            cursor: pointer;
-            }
-        </style>
         <p>After this, the malware relaunches itself as "<b>msiexec.exe</b>" after setting environment variables. Also it downloads a .exe file with a temp name to %AppData%.</p> 
-        <p>Then a whole suite of malicious executables are downloaded and executed on the system</p>
+        <p>Then a whole suite of malicious executables are downloaded and executed on the system. In particular the following .exe are downloaded</p>
+        <li>nvc.exe - SHA1: 40d5d83a04d33347431128338490615d4390088c</li>
+        <li>svc.exe - SHA1: d0639a290e178e152e50b50c185d08f79ab52629</li>
+        <li>z.exe - SHA1: bf9339f46d7a33d342aeb7fca8b5d5fb8b4d165a</li>
+        <li>zx.exe - SHA1: 8e0b84d2d362126d157ad9e50d295a18427af8e0</li>
+        <li>update.exe - SHA1: bf9339f46d7a33d342aeb7fca8b5d5fb8b4d165a</li>
+        <img src="./redlineAnalysis/malwareDownloadsWireshark.png" alt="Redline strings analysis" class="gallery-item">
+
+        <p>While an in depth analysis for each of these files was not carried, it can be said that each has a set of exported functions or internal routines that aim to steal data in different ways, including scanning user folders, capturing screenshots, injecting web pages, and stealing cookie. Each of these executables has capabilities to send data to the C2 server independently. <br> We observe evidence of that in the Procmon logs, which indicates that one of these samples collected screenshots and builded in its install path - %ProgramData% - a set of folders regarding famous programs of various categories (including FTP clients, and Messaging apps) and then packed the logs to a .zip file and then uploaded it.</p>
+        <img src="./redlineAnalysis/malwareDownload (8).png" alt="Redline strings analysis" class="gallery-item">
+        <img src="./redlineAnalysis/malwareDownload (9).png" alt="Redline strings analysis" class="gallery-item">
+
+        <h3>Advanced static analysis</h3>
+
+        <h2>Second stage: Bot</h2>
 
 
-    <footer>
-        <p>&copy; 2025 Raffaele Carillo. <a href="https://github.com/tuo-username">GitHub</a></p>
-    </footer>
-</body>
-</html>
+        <div id="" style="overflow:scroll; height:400px;">
+            <div class="section-title">File Information</div>
+            <table>
+                <tbody>
+                    <tr><th>md5</th><td>245749553e7194636b0f78e7dea115ef</td></tr>
+                    <tr><th>sha1</th><td>78bdad1cf98759ec9dbcc1888cdaa2f7fccfcdbc</td></tr>
+                    <tr><th>sha256</th><td>4b7e4232fec31a80cdccada106516e45a38d97ae18fbba586d4bec41c0bad823</td></tr>
+                    <tr><th>analysis</th><td>static</td></tr>
+                    <tr><th>os</th><td>windows</td></tr>
+                    <tr><th>format</th><td>pe</td></tr>
+                    <tr><th>arch</th><td>amd64</td></tr>
+                    <tr><th>path</th><td>C:/Users/User/Downloads/bot.dll</td></tr>
+                </tbody>
+            </table>
+        
+            <div class="section-title">ATT&CK Mapping</div>
+            <table>
+                <thead>
+                    <tr><th>ATT&CK Tactic</th><th>ATT&CK Technique</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>COLLECTION</td><td>Archive Collected Data::Archive via Library [T1560.002]</td></tr>
+                    <tr><td rowspan="6">DEFENSE EVASION</td><td>File and Directory Permissions Modification [T1222]</td></tr>
+                    <tr><td>Obfuscated Files or Information [T1027]</td></tr>
+                    <tr><td>Indicator Removal from Tools [T1027.005]</td></tr>
+                    <tr><td>Process Hollowing [T1055.012]</td></tr>
+                    <tr><td>Thread Execution Hijacking [T1055.003]</td></tr>
+                    <tr><td>Reflective Code Loading [T1620]</td></tr>
+                </tbody>
+            </table>
+        
+            <div class="section-title">MBC Mapping</div>
+            <table>
+                <thead>
+                    <tr><th>MBC Objective</th><th>MBC Behavior</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>ANTI-BEHAVIORAL ANALYSIS</td><td>Debugger Detection::Software Breakpoints [B0001.025]</td></tr>
+                    <tr><td rowspan="2">ANTI-STATIC ANALYSIS</td><td>Executable Code Obfuscation::Argument Obfuscation [B0032.020]</td></tr>
+                    <tr><td>Executable Code Obfuscation::Stack Strings [B0032.017]</td></tr>
+                </tbody>
+            </table>
+        
+            <div class="section-title">Capabilities</div>
+            <table>
+                <thead>
+                    <tr><th>Capability</th><th>Namespace</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>check for software breakpoints (2 matches)</td><td>anti-analysis/anti-debugging/debugger-detection</td></tr>
+                    <tr><td>contain obfuscated stackstrings</td><td>anti-analysis/obfuscation/string/stackstring</td></tr>
+                    <tr><td>parse credit card information</td><td>collection/credit-card</td></tr>
+                </tbody>
+            </table>
+            </div>
+
+        
+    </div>
+        <footer>
+            <p>&copy; 2025 Raffaele Carillo. <a href="https://github.com/tuo-username">GitHub</a></p>
+        </footer>
+    </body>
+    </html>
