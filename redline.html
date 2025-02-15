@@ -330,6 +330,28 @@
         <img src="./redlineAnalysis/malwareDownload (9).png" alt="Redline strings analysis" class="gallery-item">
 
         <h3>Advanced static analysis</h3>
+        <p>Next, we analyze the sample using <b>IDA Pro</b>. For convinience, we shall rename all crucial functions and variables once their role in the execution has been determined. The malware exports the usual <b>start</b> function.</p>
+        <p>The first called function dynamically imports a long list of functions from various system lybraries and creates a referene to them. The most effective way to reverse engineer this program is to rename those functions thus making it clearer their purposes throughout the program. By doing this properly the analysis tool is also helped in its task of identifying common function signatures. In this function, also three registry keys are present that refer to startup programs.</p>
+        <p>The malware also checks for the presence of debuggers and exits in that case.</p>
+        <img src="./redlineAnalysis/ImportFunctions.png" alt="Redline strings analysis" class="gallery-item">
+        <img src="./redlineAnalysis/CheckDebugging.png" alt="Redline strings analysis" class="gallery-item">
+
+        <p>After enabling all the privileges for itself, the malware proceeds with the download of the malicious DLL. In particular, it downloads the malicious DLL from one of the C2 IPs to its process heap and then injects the explorer process with it.</p>
+        <img src="./redlineAnalysis/DownloadToHeap.png" alt="Redline strings analysis" class="gallery-item">
+        <img src="./redlineAnalysis/DownloadAndInjectExplorer.png" alt="Redline strings analysis" class="gallery-item">
+        <img src="./redlineAnalysis/InjectExplorer.png" alt="Redline strings analysis" class="gallery-item">
+
+        <p>After the injection, the malware checks if it has been launched as "msiexec.exe", if so it checks if the mutex "worker_VznLpbPuTg" is set, if it isn't it exits the process. It is worth to point that the use of the mutex isn't to make sure that only one instance of the malware is running, but rather it is probably used to check for the presence of other pieces of software. After that, it creates a thread that creates an exe file by using the (hashed) volume serial number and, checks for the presence of analysis software like Process Hacker and x64dbg, adds the .exe to an autorun key ("Software\\Microsoft\\Windows\\CurrentVersion\\Run") for future execution and sleeps the process if analysis softwares are found. Meanwhile, another thread attempts to download and inject the DLL again, this time with the "Diamotrixes" mutex</p>
+        <img src="./redlineAnalysis/GetHashedVolumeInfo.png" alt="Redline strings analysis" class="gallery-item">
+        <img src="./redlineAnalysis/SleepIfAnalyzed.png" alt="Redline strings analysis" class="gallery-item">
+
+        <p>If the malware has a different name, it will move its file similarly to how mentioned before.</p>
+        <p>Then, it checks if the operating system version is Windows 7 or earlier. If a mutex "GqgWzd" isn't set it exits the process. </p>
+        <p>Finally, it sets a series of environment variables (msiexec.exe, audiodg.exe, svchost.exe) to point to the current path of the malware module. Then it uses process hollowing to launch one (the first successfully set) executable pointed by the environment variables and uses ntdll to perform process hollowing by using "NtUnmapViewOfSection","ZwQueryVirtualMemory", and "WriteProcessMemory"</p>
+        <img src="./redlineAnalysis/SetEnvVars.png" alt="Redline strings analysis" class="gallery-item">
+        <img src="./redlineAnalysis/hollowing (1).png" alt="Redline strings analysis" class="gallery-item">
+        <img src="./redlineAnalysis/hollowing (2).png" alt="Redline strings analysis" class="gallery-item">
+        <p>This marks the last function of the malware downloader which then exits. </p>
 
         <h2>Second stage: Bot</h2>
 
