@@ -46,7 +46,7 @@
         gap: 1rem;
         }
         .project {
-            background: white;
+            background: #333;
             padding: 1rem;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -68,9 +68,10 @@
             margin: 0;
         }
         .project a {
-            color: #007bff;
+            color: white;
             text-decoration: none;
             font-weight: bold;
+            font-size: 12pt;
             margin-top: 0.5rem;
             display: inline-block;
         }
@@ -78,11 +79,37 @@
             text-decoration: underline;
         }
         .publication {
-            background: white;
+            background: #333;
             margin: 1rem 0;
             padding: 1rem;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        body {
+            font-family: monospace;
+            background-color: #1e1e1e;
+            color: #ffffff;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            border: 2px solid #888;
+        }
+        th, td {
+            border: 1px solid #888;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #444;
+        }
+        .section-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 10px;
         }
         .publication h3 {
             margin: 0;
@@ -97,7 +124,7 @@
             text-align: center;
             margin-top: 1rem;
             padding: 0.2rem;
-            background: white;
+            background: #333;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             border-radius: 8px;
         }
@@ -106,9 +133,10 @@
             font-size: 1rem;
         }
         .contacts a {
-            color: #007bff;
+            color: white;
             text-decoration: none;
             font-weight: bold;
+            font-size: 12pt;
         }
         .contacts a:hover {
             text-decoration: underline;
@@ -119,10 +147,22 @@
             background-color: #333;
             color: white;
         }
+        .gallery-item {
+                width: 300px;
+                height: auto;
+            cursor: pointer;
+        }
+        .authors {
+            font-size: 4pt;
+            color: #CCC;
+        }
+        .conference {
+            font-size: 8pt;
+            color: #CCC;
+        }
         footer a {
             color: #007bff;
         }
-        
         @media (max-width: 768px) {
             .project img {
                 height: auto;
@@ -168,9 +208,9 @@
                 </div>
 
                 <div class="project">
-                    <!--<img src="./snort.png" alt="Moving Target Defense">-->
+                    <img src="./redline.jpg" alt="Redline">
                     <h2>Redline Infostealer analysis</h2>
-                    <p>WIP</p>
+                    <p>An analysis of a malware belonging to the Redline infostealer family.</p>
                     <a href="./redline.html">Read the report</a>
                     <!--<a href="./moving_target_defense.pdf" target="_blank">Download PDF</a> -->
                 </div>
@@ -190,7 +230,7 @@
                 </div>
         
                 <div class="project">
-                    <img src="./targetstuff.png"Target Stuff">
+                    <img src="./targetstuff.png" alt="Target Stuff">
                     <h2>Target Stuff</h2>
                     <p>A funny game made with Unity where you hit targets to beat levels.</p>
                     <p style="color: red;"><b>No longer available</b></p>
@@ -203,6 +243,8 @@
 
             <div class="publication">
                 <h3>Interpretability and Complexity Reduction in IoT Network Anomaly Detection Via XAI</h3>
+                <p class="authors">Alfredo Nascita, Raffaele Carillo, Federica Giampetraglia, Antonio Iacono, Valerio Persico, Antonio Pescapé</p>
+                <p class="conference">Conference Name</p>
                 <p>This work studies the use of XAI to reduce the complexity of Deep Learning based Anomaly-Based Intrusion Detection Systems (IDS) by removing unimportant features. In particular, it uses the Kitsune and IoT23 datasets made of traffic from infected IoT devices belonging to botnets.</p>
             </div>
 

@@ -233,10 +233,11 @@
     <div class="container">
         <h1>Redline Infostealer Analysis</h1>
         <h2>Introduction</h2>
+        <p><b>DISCLAIMER: while this is a malware analysis it is not to be confused with a full reverse engineering of the code as it is beyond the objective of building IoCs and malware behavioural and static signatures.</b></p>
         <p>Redline is a malware family that has been active since 2012. It is a data stealer that is capable of exfiltrating sensitive information from the victim's machine. The malware is written in C++ and is often packed with a custom packer and loaded on the victim's machine through various loading and defense evasion mechanisms. The malware is capable of stealing sensitive information such as credentials, cookies, and browser history. The malware is also capable of taking screenshots of the victim's machine.</p>
         <h2>First stage: Downloader</h2>
         <h3>Basic static analysis</h3>
-        <p>The sample under analysis (<b>SHA1:d6ae1c5d0bf5d7784c775ee833ec63756c77bdae</b>) is flagged as a generic Trojan Downloade by most AV suites or as Fareit by some of them. It is a EXE file built for x86-64 Windows systems.
+        <p>The sample under analysis (<b>SHA1:d6ae1c5d0bf5d7784c775ee833ec63756c77bdae</b>) is flagged as a generic Trojan Downloader by most AV suites or as Fareit by some of them. It is a EXE file built for x86-64 Windows systems.
         We first analyze its capabilities using capa. The output of the tool is shown below:</p>
 
         <div id="" style="overflow:scroll; height:400px;">
@@ -355,6 +356,7 @@
 
         <h2>Second stage: Bot</h2>
 
+        The downlaoder downloads a DLL file named "<b>bot.dll</b>" (SHA1: 78bdad1cf98759ec9dbcc1888cdaa2f7fccfcdbc). Again, we analyze its general capabilities using capa.
 
         <div id="" style="overflow:scroll; height:400px;">
             <div class="section-title">File Information</div>
@@ -380,37 +382,394 @@
                     <tr><td>COLLECTION</td><td>Archive Collected Data::Archive via Library [T1560.002]</td></tr>
                     <tr><td rowspan="6">DEFENSE EVASION</td><td>File and Directory Permissions Modification [T1222]</td></tr>
                     <tr><td>Obfuscated Files or Information [T1027]</td></tr>
-                    <tr><td>Indicator Removal from Tools [T1027.005]</td></tr>
-                    <tr><td>Process Hollowing [T1055.012]</td></tr>
-                    <tr><td>Thread Execution Hijacking [T1055.003]</td></tr>
+                    <tr><td>Obfuscated Files or Information::Indicator Removal from Tools  [T1027.005]</td></tr>
+                    <tr><td>Process Injection::Process Hollowing [T1055.012]</td></tr>
+                    <tr><td> Process Injection::Thread Execution Hijacking [T1055.003]</td></tr>
                     <tr><td>Reflective Code Loading [T1620]</td></tr>
+                    <tr><td>DISCOVERY</td><td>File and Directory Discovery [T1083]  </td></tr>
+                    <tr><td>Process Discovery [T1057]</td></tr>
+                    <tr><td>Software Discovery [T1518]</td></tr>
+                    <tr><td>System Information Discovery [T1082]</td></tr>
+                    <tr><td>EXECUTION</td><td>Shared Modules [T1129]  </td></tr>
+                    <tr><td>PRIVILEGE ESCALATION</td><td>Access Token Manipulation [T1134]</td></tr>
+
+
+
                 </tbody>
             </table>
         
             <div class="section-title">MBC Mapping</div>
             <table>
-                <thead>
-                    <tr><th>MBC Objective</th><th>MBC Behavior</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>ANTI-BEHAVIORAL ANALYSIS</td><td>Debugger Detection::Software Breakpoints [B0001.025]</td></tr>
-                    <tr><td rowspan="2">ANTI-STATIC ANALYSIS</td><td>Executable Code Obfuscation::Argument Obfuscation [B0032.020]</td></tr>
-                    <tr><td>Executable Code Obfuscation::Stack Strings [B0032.017]</td></tr>
-                </tbody>
+                <tr>
+                    <td>MBC Objective</td>
+                    <td>MBC Behavior</td>
+                </tr>
+                <tr>
+                    <td>ANTI-BEHAVIORAL ANALYSIS</td>
+                    <td>Debugger Detection::Software Breakpoints [B0001.025]</td>
+                </tr>
+                <tr>
+                    <td>ANTI-STATIC ANALYSIS</td>
+                    <td>Executable Code Obfuscation::Argument Obfuscation [B0032.020]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Executable Code Obfuscation::Stack Strings [B0032.017]</td>
+                </tr>
+                <tr>
+                    <td>COMMAND AND CONTROL</td>
+                    <td>C2 Communication::Receive Data [B0030.002]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>C2 Communication::Send Data [B0030.001]</td>
+                </tr>
+                <tr>
+                    <td>COMMUNICATION</td>
+                    <td>HTTP Communication [C0002]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>HTTP Communication::Connect to Server [C0002.009]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>HTTP Communication::Create Request [C0002.012]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>HTTP Communication::Get Response [C0002.017]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>HTTP Communication::Open URL [C0002.004]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>HTTP Communication::Read Header [C0002.014]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>HTTP Communication::Send Request [C0002.003]</td>
+                </tr>
+                <tr>
+                    <td>DATA</td>
+                    <td>Check String [C0019]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Compress Data [C0024]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Encode Data::XOR [C0026.002]</td>
+                </tr>
+                <tr>
+                    <td>DEFENSE EVASION</td>
+                    <td>Obfuscated Files or Information::Encoding-Standard Algorithm [E1027.m02]</td>
+                </tr>
+                <tr>
+                    <td>DISCOVERY</td>
+                    <td>File and Directory Discovery [E1083]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>System Information Discovery [E1082]</td>
+                </tr>
+                <tr>
+                    <td>FILE SYSTEM</td>
+                    <td>Create Directory [C0046]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Read File [C0051]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Set File Attributes [C0050]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Write File [C0052]</td>
+                </tr>
+                <tr>
+                    <td>MEMORY</td>
+                    <td>Allocate Memory [C0007]</td>
+                </tr>
+                <tr>
+                    <td>PROCESS</td>
+                    <td>Check Mutex [C0043]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Create Mutex [C0042]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Create Process [C0017]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Create Process::Create Suspended Process [C0017.003]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Create Thread [C0038]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Enumerate Threads [C0064]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Resume Thread [C0054]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Suspend Thread [C0055]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Terminate Process [C0018]</td>
+                </tr>
             </table>
-        
             <div class="section-title">Capabilities</div>
             <table>
                 <thead>
-                    <tr><th>Capability</th><th>Namespace</th></tr>
+                    <tr>
+                        <th>Capability</th>
+                        <th>Namespace</th>
+                    </tr>
                 </thead>
                 <tbody>
-                    <tr><td>check for software breakpoints (2 matches)</td><td>anti-analysis/anti-debugging/debugger-detection</td></tr>
-                    <tr><td>contain obfuscated stackstrings</td><td>anti-analysis/obfuscation/string/stackstring</td></tr>
-                    <tr><td>parse credit card information</td><td>collection/credit-card</td></tr>
+                    <tr>
+                        <td>check for software breakpoints (2 matches)</td>
+                        <td>anti-analysis/anti-debugging/debugger-detection</td>
+                    </tr>
+                    <tr>
+                        <td>contain obfuscated stackstrings</td>
+                        <td>anti-analysis/obfuscation/string/stackstring</td>
+                    </tr>
+                    <tr>
+                        <td>parse credit card information</td>
+                        <td>collection/credit-card</td>
+                    </tr>
+                    <tr>
+                        <td>receive data (2 matches)</td>
+                        <td>communication</td>
+                    </tr>
+                    <tr>
+                        <td>send data</td>
+                        <td>communication</td>
+                    </tr>
+                    <tr>
+                        <td>get HTTP content length</td>
+                        <td>communication/http</td>
+                    </tr>
+                    <tr>
+                        <td>reference HTTP User-Agent string (3 matches)</td>
+                        <td>communication/http</td>
+                    </tr>
+                    <tr>
+                        <td>check HTTP status code</td>
+                        <td>communication/http/client</td>
+                    </tr>
+                    <tr>
+                        <td>compress data via WinAPI</td>
+                        <td>data-manipulation/compression</td>
+                    </tr>
+                    <tr>
+                        <td>encode data using XOR</td>
+                        <td>data-manipulation/encoding/xor</td>
+                    </tr>
+                    <tr>
+                        <td>get Program Files directory</td>
+                        <td>host-interaction/file-system</td>
+                    </tr>
+                    <tr>
+                        <td>get common file path (3 matches)</td>
+                        <td>host-interaction/file-system</td>
+                    </tr>
+                    <tr>
+                        <td>create directory</td>
+                        <td>host-interaction/file-system/create</td>
+                    </tr>
+                    <tr>
+                        <td>check if file exists</td>
+                        <td>host-interaction/file-system/exists</td>
+                    </tr>
+                    <tr>
+                        <td>get file size</td>
+                        <td>host-interaction/file-system/meta</td>
+                    </tr>
+                    <tr>
+                        <td>set file attributes</td>
+                        <td>host-interaction/file-system/meta</td>
+                    </tr>
+                    <tr>
+                        <td>read file on Windows</td>
+                        <td>host-interaction/file-system/read</td>
+                    </tr>
+                    <tr>
+                        <td>write file on Windows</td>
+                        <td>host-interaction/file-system/write</td>
+                    </tr>
+                    <tr>
+                        <td>get disk information</td>
+                        <td>host-interaction/hardware/storage</td>
+                    </tr>
+                    <tr>
+                        <td>print debug messages</td>
+                        <td>host-interaction/log/debug/write-event</td>
+                    </tr>
+                    <tr>
+                        <td>check mutex</td>
+                        <td>host-interaction/mutex</td>
+                    </tr>
+                    <tr>
+                        <td>check mutex and exit</td>
+                        <td>host-interaction/mutex</td>
+                    </tr>
+                    <tr>
+                        <td>get system information on Windows (2 matches)</td>
+                        <td>host-interaction/os/info</td>
+                    </tr>
+                    <tr>
+                        <td>get process filename</td>
+                        <td>host-interaction/process</td>
+                    </tr>
+                    <tr>
+                        <td>create process on Windows</td>
+                        <td>host-interaction/process/create</td>
+                    </tr>
+                    <tr>
+                        <td>inject thread</td>
+                        <td>host-interaction/process/inject</td>
+                    </tr>
+                    <tr>
+                        <td>use process replacement</td>
+                        <td>host-interaction/process/inject</td>
+                    </tr>
+                    <tr>
+                        <td>enumerate processes (2 matches)</td>
+                        <td>host-interaction/process/list</td>
+                    </tr>
+                    <tr>
+                        <td>acquire debug privileges</td>
+                        <td>host-interaction/process/modify</td>
+                    </tr>
+                    <tr>
+                        <td>modify access privileges</td>
+                        <td>host-interaction/process/modify</td>
+                    </tr>
+                    <tr>
+                        <td>enumerate process modules</td>
+                        <td>host-interaction/process/modules/list</td>
+                    </tr>
+                    <tr>
+                        <td>terminate process</td>
+                        <td>host-interaction/process/terminate</td>
+                    </tr>
+                    <tr>
+                        <td>enumerate threads</td>
+                        <td>host-interaction/thread/list</td>
+                    </tr>
+                    <tr>
+                        <td>suspend thread</td>
+                        <td>host-interaction/thread/suspend</td>
+                    </tr>
+                    <tr>
+                        <td>access PEB ldr_data</td>
+                        <td>linking/runtime-linking</td>
+                    </tr>
+                    <tr>
+                        <td>link function at runtime on Windows (10 matches)</td>
+                        <td>linking/runtime-linking</td>
+                    </tr>
+                    <tr>
+                        <td>link many functions at runtime</td>
+                        <td>linking/runtime-linking</td>
+                    </tr>
+                    <tr>
+                        <td>resolve function by hash</td>
+                        <td>linking/runtime-linking</td>
+                    </tr>
+                    <tr>
+                        <td>linked against CPP standard library</td>
+                        <td>linking/static</td>
+                    </tr>
+                    <tr>
+                        <td>linked against CPP regex library</td>
+                        <td>linking/static/cppregex</td>
+                    </tr>
+                    <tr>
+                        <td>parse PE header</td>
+                        <td>load-code/pe</td>
+                    </tr>
+                    <tr>
+                        <td>resolve function by parsing PE exports (2 matches)</td>
+                        <td>load-code/pe</td>
+                    </tr>
+                    <tr>
+                        <td>spawn thread to RWX shellcode</td>
+                        <td>load-code/shellcode</td>
+                    </tr>
                 </tbody>
             </table>
             </div>
+
+            <p>Next, we analyze the file using DetectItEasy. The PE, according to the entropy measurement, is not packed. The bot uses the same building suite of the downloader.</p>
+            
+            <p>The strings contained in the bot have various references to HTTP fields, and in general it is clear that is capable of building HTTP packets. This time, the IPs used to communicate with C2 are "176.113.115.149" and "185.81.68.156". We see reference to a "/data.php" web page and also some format strings. Additionally, we see a large JSON dictionary with a list of URLs and pieces of injected HTML that is used to steal data from web banking services.  In one of the keys of the JSON "www.exchanger.ws" we see references to four crypto wallets in a piece of inline Javascript code:</p>
+            <li>1B4GDAxGV7Vqa9Lav4EfypTxgrAhCFMQrs</li>
+            <li>0xb05ee3d0939cb19756a911e16831276263add113</li>
+            <li>LYfS7Pc4oqUbFaSEqfAvffWmc7GSM9NBZE</li>
+            <li>TVEEyR8HsmMX7vQr5XUAigWLsPquH1jBTW</li>
+            <p>
+                That, presumably, replace the addresses during a transaction.
+            </p>
+            <img src="./redlineAnalysis/botStrings1.png" alt="Redline strings analysis" class="gallery-item">
+            <img src="./redlineAnalysis/botStrings2.png" alt="Redline strings analysis" class="gallery-item">
+            
+            <h3>Advanced Static Analysis</h3>
+            <p> Having observed its operations in the previous dynamic analysis, we move to the Advanced Static Analysis. The DLL exports one function: DllEntryPoint and ReflectiveLoader. While it is really complicated to reverse engineer code loaded using reflection, a really similar loader was found publicly available on GitHub (<a href= "https://gist.github.com/Niko10/debc459e267201b1ec44c485d2e408b0", target="_blank"> https://gist.github.com/Niko10/debc459e267201b1ec44c485d2e408b0</a>). Luckily, IDA Pro also detects a DllEntryPoint which is presumably the function called by the ReflectiveLoader.</p>
+            <p>We move to the DllMain called by the DllEntryPoint. Here we find once again a function that dynamically imports a bunch of functions and defines a set of strings. Interestingly enough, not all of them are used this time so it is possible to assume that more versions of this bot are available or that its functionalities have changed.</p>
+            <p>For the following analysis of the code we make us of the pseudocode recunstruction functionality provided by IDA Pro as the code is highly convoluted and complicated by presumably inlined regex functions and text manipulations. We detect the presence of four more crypto wallet addresses:</p>
+
+            <li>1ZWNNwbtBZWS9M9Q58NA2z9e4AXvK9VuD</li>
+            <li>0x270a8ee6933ae7a56b82c7c3e625cca5c120a520</li>
+            <li>TAfvwf9NS4WXJR8qxTwo5qdnDKTaL762j6</li>
+            <li>LKnTdbFRxqoZgx3JaD7fS43urGXp2dgkLU</li>
+
+            <p>Additionally, the thread launching this function collects data from the user clipboard and then sets its content with the manipulated crypto addresses. It is unclear the role of these addresses and of the text copied from the user clipboard for the rest of the code. Presumably, this data is used later in one of the other malicious executables thus achieving modularity.</p>
+            <img src="./redlineAnalysis/CryptoWalletsRegex.png" alt="Redline strings analysis" class="gallery-item">
+
+            <p>The next function once again downloads the bot DLL. Then, it copies the local installed browser executable and launches an internal process. While it is unclear what this exactly does, it can be assumed that it is used either to steal data using the JSON shown above or to send the data to the server using the browser's functionalities. Also a pipe is created to communicate with other malicious executables on the system.</p>
+
+            <img src="./redlineAnalysis/DownloadAndUseBrowser.png" alt="Redline strings analysis" class="gallery-item">
+            <img src="./redlineAnalysis/UseBrowser.png" alt="Redline strings analysis" class="gallery-item">
+            <img src="./redlineAnalysis/pipe.png" alt="Redline strings analysis" class="gallery-item">
+
+            Next, the malware registers the victim to the C2 server using hashed drive and operating system informations. Also, it performs a XOR encoding of the content. After that, the malware receives a list of pipe ('|') separated URLs from the C2 server. The URLs refer to the executables mentioned before. The malware then downloads and executes the executables.
+
+            <img src="./redlineAnalysis/ParseExeList.png" alt="Redline strings analysis" class="gallery-item">
+            <img src="./redlineAnalysis/DownloadAndRunExe1.png" alt="Redline strings analysis" class="gallery-item">
+            <img src="./redlineAnalysis/DownloadAndRunExe2.png" alt="Redline strings analysis" class="gallery-item">
+
+            <p>We move to another piece of  code convoluted by numerous address manipulations and structures where the malware gets hold of the browser (Chromium-based or Firefox) DLL and access its .text area to obtain a pointer to an unclear function. We can however assume that this is related to sending user data to the C2 server as in one of the functions called in this section we find references to a global variable which contains user data sent to the C2 server with a POST request to the ./data.php URL. The request is created with a format string "report=%s,%s,%d" where the first parameter is "C" if the browser is Chrome, "h" if is Firefox. The second parameter is a global variable that we assume is related to user data, while the third is data stolen using injected HTML from the browser. </p>
+
+            <img src="./redlineAnalysis/ChromiumDlls.png" alt="Redline strings analysis" class="gallery-item">
+            <img src="./redlineAnalysis/SendData.png" alt="Redline strings analysis" class="gallery-item">
+
+            <p>We conclude the analysis by focussing on how the malware steals data from the web browser. Previously we mentioned that the malware uses the browser DLL, by manipulating its ".text" area for unclear purposes. While the exact functioning is not clear we can assume that this is done to inject the web content contained in the JSON dictionary mentioned before. In fact, in this section we find references to the fields of that dictionary.</p>
+            <img src="./redlineAnalysis/jsonBrowserInjection.png" alt="Redline strings analysis" class="gallery-item">
+
+            <h1>Conclusions</h1>
+            <img src="./redlineAnalysis/blog-pyramid-pain-01-768x432.jpg" alt="Redline strings analysis" class="gallery-item">
+            <p>In conclusion, this malware is a sophisticated and modular threat, designed to download and execute additional malicious payloads. It can steal sensitive data from the user’s clipboard and web browser, transmitting the stolen information to a command-and-control (C2) server. Additionally, it communicates with other malicious executables on the system, enhancing its functionality. The malware is equipped with advanced evasion techniques, allowing it to detect and hide from analysis tools. It also establishes persistence on the system, ensuring long-term control. Furthermore, it employs techniques like process injection and process hollowing to execute malicious code stealthily. As IoCs, the malware provides both IPs and various suspicious strings used for various objectives. In any case, most of the IoCs can be considered at most annoying in the Pyramid of Pain [D. J Bianco 2013] so any signature related to these artifacts can easily be modified thus requiring continous maintainance of such signatures by AVs vendors. Additionally, this kind of malware are often sold on the dark-web as MaaS (Malware as a Service), so these kind of IoCs are expected to change from client to client. The best way to counter this malware lies in behavioural protection such as SIGMA rules. In fact, it is more effective to enforce rules for some of the techniques used by the malware such as Process Hollowing, Process Injection, and Privileges Excalation.</p>
+
+
+
 
         
     </div>
