@@ -172,6 +172,23 @@
         }
     </style>
 </head>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const grid = document.querySelector(".projects-grid");
+    const projects = Array.from(grid.children);
+
+    // Shuffle using Fisher-Yates algorithm
+    for (let i = projects.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [projects[i], projects[j]] = [projects[j], projects[i]];
+    }
+
+    // Re-append shuffled elements
+    projects.forEach(project => grid.appendChild(project));
+});
+</script>
+
 <body>
     <header>
         <h1>Raffaele Carillo's Portfolio</h1>
@@ -237,6 +254,12 @@
                     <h2>Target Stuff</h2>
                     <p>A funny game made with Unity where you hit targets to beat levels.</p>
                     <p style="color: red;"><b>No longer available</b></p>
+                </div>
+                <div class="project">
+                    <img src="./stm32.png" alt="Target Stuff">
+                    <h2>AndroidMote</h2>
+                    <p>An embedded system project for recreating the Wii controller pointer using OpenCV on Android and a STM32 board with a SPI display.</p>
+                    <a href="./AndroidMote.pptx" target="_blank">Download PPTX</a>
                 </div>
             </div>
         </section>
